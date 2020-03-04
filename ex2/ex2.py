@@ -9,23 +9,24 @@ point2 = (1180, 100)
 
 
 def degree1(x):
-    degree = cv.getTrackbarPos('rot_degree', 'image')
+    degree = cv.getTrackbarPos('rot_degree', 'image')  # receives the trackpad value
+    # creates rotation matrix based on degree of rotation
     rotation_matrix = cv.getRotationMatrix2D((width / 2, height / 2), degree, 1)
     rotated_image = cv.warpAffine(img, rotation_matrix, (width, height))  # applies a transformation matrix to an image
-    horizontal = np.concatenate((img, rotated_image), axis=1)
+    horizontal = np.concatenate((img, rotated_image), axis=1)  # attaches two pics horizontally
     x0 = 3*width/2
     y0 = height/2
     alpha = degree * math.pi/180
     x2 = ((1180 - x0) * math.cos(alpha)) + ((100 - y0) * math.sin(alpha)) + x0
     y2 = (-(1180 - x0) * math.sin(alpha)) + ((100 - y0) * math.cos(alpha)) + y0
     point3 = (int(x2), int(y2))
-    cv.line(horizontal, point1, point3, (0, 0, 255), 2)
+    cv.line(horizontal, point1, point3, (0, 0, 255), 2)  # draws a line
     cv.imshow('image', horizontal)
 
 
-cv.namedWindow('image')
+cv.namedWindow('image')  # opens a named window
 cv.resizeWindow('image', 1080, 1920)
-cv.createTrackbar('rot_degree', 'image', 0, 360, degree1)
+cv.createTrackbar('rot_degree', 'image', 0, 360, degree1)  # creates a trackbar on the UI
 
 # concatenate image Horizontally , connect two pictures toward x axis
 horizontal1 = np.concatenate((img, img), axis=1)

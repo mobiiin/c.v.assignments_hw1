@@ -1,13 +1,14 @@
 import cv2
 import numpy as np
 img = cv2.imread('football.jpg', 1)
+# creates a rectangle in the specified image
 cv2.rectangle(img, (300, 455), (375, 530), (0, 255, 0), 2)
 cv2.imshow('football', img)
-dimension = img.shape
+dimension = img.shape  # saves the height and width and channels of image
 print(dimension)
 img1 = cv2.imread('football.jpg', 1)
-ball = img1[455:530, 300:375]
-img1[460:535, 600:675] = ball
+ball = img1[455:530, 300:375]  # crops the image according to the inserted coordinates
+img1[460:535, 600:675] = ball  # saves the crop
 cv2.imshow('football1', img1)
 cv2.imwrite('football_f.jpg', img1)
 # create a mask around the ball
@@ -17,4 +18,3 @@ cv2.imwrite('football_f.jpg', img1)
 # cv2.imshow('final', final)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-

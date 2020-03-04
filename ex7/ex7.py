@@ -22,14 +22,14 @@ dimension = img.shape
 print(dimension)
 temp = imgG[45:80, 320:370]
 imgG[45:80, 320:370] = temp  # I cropped a rectangle for template matching
-(w, h) = temp.shape[::-1]  # it gives us the height and width of the shape in the reverse order
-match = cv.matchTemplate(imgG, temp, cv.TM_CCOEFF_NORMED)  # fetches us the coordinates of possible matches
+(h, w) = temp.shape  # it gives us the height and width of the shape in the reverse order
+match = cv.matchTemplate(imgG, temp, cv.TM_CCOEFF_NORMED)  # fetches us the matrix of possible matches
 print(match)
 match1 = np.where(match >= 0.7)  # searches inside the match data and brings us the ones greater than specified value
 print(match1)
 
-for pt in zip(*match1[::-1]):
-    cv.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+for p in zip(*match1[::-1]):  # creates iterable
+    cv.rectangle(img, p, (p[0] + w, p[1] + h), (0, 0, 255), 2)
 
 cv.imshow('imgG', img)
 cv.waitKey(0)
